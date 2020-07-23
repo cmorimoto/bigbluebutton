@@ -364,6 +364,7 @@ class PanelManager extends PureComponent {
   renderPoll() {
     return (
       <div className={styles.poll} key={this.pollKey}>
+        <p>pollcontainer abaixo</p>
         <PollContainer />
       </div>
     );
