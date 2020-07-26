@@ -26,6 +26,10 @@ const intlMessages = defineMessages({
     id: 'app.poll.customPollLabel',
     description: 'label for custom poll button',
   },
+  textPollLabel: {
+    id: 'app.poll.textPollLabel',
+    description: 'label for text poll button',
+  },
   startCustomLabel: {
     id: 'app.poll.startCustomLabel',
     description: 'label for button to start custom poll',
@@ -82,6 +86,10 @@ const intlMessages = defineMessages({
     id: 'app.poll.a5',
     description: 'label for A / B / C / D / E poll',
   },
+  txt: {
+    id: 'app.poll.txt',
+    description: 'label for txt poll',
+  },
 });
 
 const MAX_CUSTOM_FIELDS = Meteor.settings.public.poll.max_custom;
@@ -93,6 +101,7 @@ class Poll extends Component {
 
     this.state = {
       customPollReq: false,
+      textPollReq: false,
       isPolling: false,
       customPollValues: [],
     };
@@ -161,7 +170,7 @@ class Poll extends Component {
     } = this.props;
 
     const btns = pollTypes.map((type) => {
-      if (type === 'custom') return false;
+      if (type === 'custom' || type === 'txt') return false;
 
       const label = intl.formatMessage(
         // regex removes the - to match the message id
@@ -289,6 +298,22 @@ class Poll extends Component {
           aria-expanded={customPollReq}
         />
         {!customPollReq ? null : this.renderCustomView()}
+        
+        <div className={styles.instructions}>
+          {intl.formatMessage(intlMessages.textPollInstruction)}
+        </div>
+        // Botão para polls de texto
+        <Button
+          disabled={!isMeteorConnected}
+          className={styles.pollBtn}
+          color="default"
+          onClick={() => {
+            Session.set('pollInitiated', true);
+            this.setState({ isPolling: true }, () => startPoll('txt');
+          }
+          label={intl.formatMessage(intlMessages.textPollLabel)}
+          aria-expanded={textPollReq}
+        />
       </div>
     );
   }

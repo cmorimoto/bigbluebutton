@@ -9,7 +9,8 @@ import Polls from '/imports/api/polls';
 // 'A-3' = A,B,C
 // 'A-4' = A,B,C,D
 // 'A-5' = A,B,C,D,E
-const pollTypes = ['YN', 'TF', 'A-2', 'A-3', 'A-4', 'A-5', 'custom'];
+// 'TXT' = Text poll
+const pollTypes = ['YN', 'TF', 'A-2', 'A-3', 'A-4', 'A-5', 'custom', 'txt'];
 
 const pollAnswerIds = {
   true: {
@@ -47,6 +48,10 @@ const pollAnswerIds = {
   e: {
     id: 'app.poll.answer.e',
     description: 'label for poll answer E',
+  },
+  txt: {
+    id: 'app.poll.answer.txt',
+    description: 'text field for text answer',
   },
 };
 
