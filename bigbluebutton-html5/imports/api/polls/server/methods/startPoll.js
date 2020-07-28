@@ -24,6 +24,8 @@ export default function startPoll(pollType, pollId, answers) {
     check(answers, Array);
     payload.answers = answers;
   }
-
+  if (pollType === 'txt') {
+    EVENT_NAME = 'StartTextPollReqMsg';
+  }
   return RedisPubSub.publishUserMessage(CHANNEL, EVENT_NAME, meetingId, requesterUserId, payload);
 }
