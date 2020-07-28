@@ -68,37 +68,48 @@ class Polling extends Component {
               if (pollAnswerIds[formattedMessageIndex]) {
                 label = intl.formatMessage(pollAnswerIds[formattedMessageIndex]);
               }
-
-              return (
-                <div
-                  key={pollAnswer.id}
-                  className={styles.pollButtonWrapper}
-                >
-                  <Button
-                    disabled={!isMeteorConnected}
-                    className={styles.pollingButton}
-                    color="primary"
-                    size="md"
-                    label={label}
-                    key={pollAnswer.key}
-                    onClick={() => handleVote(poll.pollId, pollAnswer)}
-                    aria-labelledby={`pollAnswerLabel${pollAnswer.key}`}
-                    aria-describedby={`pollAnswerDesc${pollAnswer.key}`}
+              if(poll.answers.key != 'txt'){
+                return (
+                  <div
+                    key={pollAnswer.id}
+                    className={styles.pollButtonWrapper}
+                  >
+                    <Button
+                      disabled={!isMeteorConnected}
+                      className={styles.pollingButton}
+                      color="primary"
+                      size="md"
+                      label={label}
+                      key={pollAnswer.key}
+                      onClick={() => handleVote(poll.pollId, pollAnswer)}
+                      aria-labelledby={`pollAnswerLabel${pollAnswer.key}`}
+                      aria-describedby={`pollAnswerDesc${pollAnswer.key}`}
+                    />
+                    <div
+                      className={styles.hidden}
+                      id={`pollAnswerLabel${pollAnswer.key}`}
+                    >
+                      {intl.formatMessage(intlMessages.pollAnswerLabel, { 0: label })}
+                    </div>
+                    <div
+                      className={styles.hidden}
+                      id={`pollAnswerDesc${pollAnswer.key}`}
+                    >
+                      {intl.formatMessage(intlMessages.pollAnswerDesc, { 0: label })}
+                    </div>
+                  </div>
+                );
+              }else{
+                <div className={styles.pollInput}>
+                  <input
+                    placeholder='Escreva sua resposta'
+                    className={styles.input}
+                    onChange={event => this.handleInputChange(id, event)}
+                    maxLength=80
                   />
-                  <div
-                    className={styles.hidden}
-                    id={`pollAnswerLabel${pollAnswer.key}`}
-                  >
-                    {intl.formatMessage(intlMessages.pollAnswerLabel, { 0: label })}
-                  </div>
-                  <div
-                    className={styles.hidden}
-                    id={`pollAnswerDesc${pollAnswer.key}`}
-                  >
-                    {intl.formatMessage(intlMessages.pollAnswerDesc, { 0: label })}
-                  </div>
                 </div>
-              );
+                );
+              }
             })}
           </div>
         </div>

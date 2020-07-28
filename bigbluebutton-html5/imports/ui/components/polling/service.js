@@ -11,14 +11,15 @@ const mapPolls = () => {
 
   const { answers } = poll;
   let stackOptions = false;
-
-  answers.map((obj) => {
-    if (stackOptions) return obj;
-    if (obj.key.length > MAX_CHAR_LENGTH) {
-      stackOptions = true;
-    }
-    return obj;
-  });
+  if (answers){ 
+    answers.map((obj) => {
+      if (stackOptions) return obj;
+      if (obj.key.length > MAX_CHAR_LENGTH) {
+        stackOptions = true;
+      }
+      return obj;
+    });
+  }
 
   const amIRequester = poll.requester !== 'userId';
 
